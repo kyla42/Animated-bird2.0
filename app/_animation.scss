@@ -1,4 +1,16 @@
-// bird shake
+// blink (infinite)
+@keyframes blink {
+    49%, 51% {
+        height: 1.4rem;
+    }
+
+    50% {
+        height: 0.2rem;
+    }
+}
+
+
+// shake
 .bird.shake {
     animation: shake .5s forwards;
     animation-iteration-count: 1;
@@ -22,7 +34,7 @@
     }
 }
 
-// bird jump
+// jump
 .bird.jump {
     animation: jump .7s forwards;
     animation-iteration-count: 1;
@@ -46,7 +58,7 @@
     }
 }
 
-// bird jump and stretch
+// jump and stretch
 .bird.stretch1 {
     animation: stretch1 2.2s linear;
     animation-iteration-count: 1;
@@ -103,7 +115,7 @@
     }
 }
 
-// bird stretch
+// stretch
 .bird.stretch2 {
     animation: stretch2 2s forwards;
     animation-iteration-count: 1;
@@ -140,7 +152,7 @@
     }
 }
 
-// add flower
+// flower
 .bird.flower {
 
     .bird__flower {
@@ -154,33 +166,50 @@
         transition: all 1s ease;
         transition-delay: .8s;
     }
+
+    .bird__head::after {
+        opacity: 1;
+    }
+
+    .bird__head,
+    .bird__body {
+        box-shadow: 0 0 40rem magenta;
+        transition: all 1s ease;
+        transition-delay: .8s;
+    }
+
+    // .bird__bg-overlay {
+    //     background-color: hsla(350, 100%, 88%, 0.5);
+    //     transition: all 1s ease;
+    //     transition-delay: .8s;
+    // }
 }
 
-// bird slide
+// slide
 .bird.sliding {
     animation: sliding 1.2s forwards;
     animation-iteration-count: 1;
 
     .scarf {
         opacity: 1;
-        transition-delay: 0.8s;
+        transition-delay: 0.7s;
     }
 
     @keyframes sliding {
+        40% {
+            transform: translateX(-200%);
+        }
+
+        41% {
+            opacity: 0;
+        }
+
+        42% {
+            opacity: 0;
+            transform: translateX(-200%);
+        }
+
         50% {
-            transform: translateX(-200%);
-        }
-
-        51% {
-            opacity: 0;
-        }
-
-        52% {
-            opacity: 0;
-            transform: translateX(-200%);
-        }
-
-        60% {
             opacity: 0;
             transform: translateX(200%);
         }
@@ -189,20 +218,67 @@
             transform: translateX(0);
         }
     }
+
+    .bird__snow {
+
+        @for $i from 1 through 3 {
+            span:nth-child(#{$i}) {
+                position: absolute;
+                top: -10rem;
+                left: 4.2rem * ($i * 1.1);
+                width: 1.5rem;
+                height: 1.5rem;
+                background-color: white;
+                border-radius: 50%;
+                opacity: 0;
+                animation: snowing#{$i} 1.5s linear forwards;
+                animation-delay: 0.4s * $i;
+            }
+
+            @keyframes snowing#{$i} {
+                0% {
+                    top: -15rem;
+                }
+    
+                100% {
+                    opacity: 1;
+                    top: 14rem;
+                }
+            }
+    
+            @keyframes snowing2 {
+                0% {
+                    top: -10rem;
+                }
+    
+                80% {
+                    opacity: 1;
+                    top: -0.2rem;
+                    transform: none;
+                }
+    
+                100% {
+                    opacity: 1;
+                    top: 1rem;
+                    transform: scaleX(1.5);
+                }
+            }           
+        }        
+    }
 }
 
-// bird incline
+// incline
 .bird.incline {
     .bird__head {
         animation: incline 1.7s;
         animation-iteration-count: 1;
 
-        @keyframes incline {
-            40% {
-                transform: translate(3rem, 0.6rem) rotate(23deg);
-            }
+        &::after {
+            opacity: 0;
+        }
 
-            60% {
+        @keyframes incline {
+            40%, 60% {
                 transform: translate(3rem, 0.6rem) rotate(23deg);
             }
         }
@@ -224,34 +300,33 @@
     }
 }
 
+// glasses
 .bird.glasses {
 
     .bird__glasses {
-        animation: glasses 1.8s forwards;
-        animation-iteration-count: 1;
+        animation: glasses 1.8s ease 1 forwards;
 
         @keyframes glasses {
-            100% {
+            80%, 100% {
                 opacity: 1;
                 top: 2rem;
             }
         }
     }
-}
 
+    .bird__head,
+    .bird__body {
+        animation: b-colors 1.8s ease 1;
 
-// blink (infinite)
-@keyframes blink {
-    49% {
-        height: 1.4rem;
-    }
+        @keyframes b-colors {
+            79%, 90% {
+                box-shadow: none;
+            }
 
-    50% {
-        height: 0.2rem;
-    }
-
-    51% {
-        height: 1.4rem;
+            80%, 100% {
+                box-shadow: inset -1rem 1rem 1rem gold;
+            }          
+        }
     }
 }
 
